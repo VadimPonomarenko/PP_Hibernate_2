@@ -2,8 +2,7 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.service.UserServiceImpl;
-
-import java.sql.SQLException;
+import jm.task.core.jdbc.util.Util;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,8 +17,8 @@ public class Main {
         userService.dropUsersTable();
 
         try {
-            UserDaoHibernateImpl.closeSessionFactory();
-        } catch (SQLException e) {
+            Util.closeSessionFactory(UserDaoHibernateImpl.getSessionFactory());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private static SessionFactory factory = null;
+    private static final SessionFactory factory = Util.getSessionFactory();
     private String createSQL = """
                     CREATE TABLE IF NOT EXISTS users (
                       `id` INT NOT NULL AUTO_INCREMENT,
@@ -18,16 +18,12 @@ public class UserDaoHibernateImpl implements UserDao {
                       `lastName` VARCHAR(45) NOT NULL,
                       `age` INT NOT NULL,
                       PRIMARY KEY (`id`));""";
-    public static void closeSessionFactory() throws SQLException {
-        Util.closeSessionFactory(factory);
+    public static SessionFactory getSessionFactory() {
+        return factory;
     }
 
     public UserDaoHibernateImpl() {
-        try {
-            factory = Util.getSessionFactory();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
 
